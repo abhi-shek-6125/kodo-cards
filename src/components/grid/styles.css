@@ -1,0 +1,27 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  width: 100%; /* Adjust for different number of cards per row */
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    width: calc(50% - 10px); /* Adjust for different number of cards per row */
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .card {
+    width: calc(
+      100% / 3 - 10px
+    ); /* Adjust for different number of cards per row */
+  }
+}
