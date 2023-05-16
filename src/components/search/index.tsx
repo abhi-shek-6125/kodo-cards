@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import "./styles.css";
 
 interface ISearchProps {
   onSearch(query: string): void;
@@ -20,6 +21,7 @@ const Search = ({ onSearch }: ISearchProps) => {
         value={text}
         onChange={handleChange}
         placeholder="Search by name or description"
+        className="search-box"
       />
     </div>
   );
