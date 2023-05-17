@@ -6,10 +6,11 @@ import Search from "./components/search";
 import Sort from "./components/sort";
 import Pagination from "./components/pagination";
 import { DATA, ITEMS_PER_PAGE } from "./constants";
+import IndexRoute from "./components/indexRoute";
 
 function App() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState(DATA);
   const [searchText, setSearchText] = useState("");
   const [sortBy, setSortBy] = useState("");
@@ -32,21 +33,31 @@ function App() {
     }
   }, []);
 
+  // set query params
   useEffect(() => {
-    if (searchText || sortBy) {
-      navigate(
-        `/page/${currentPage}?${
-          searchText !== "" ? `searchText=${searchText}` : ""
-        }${sortBy !== "" ? `&&sortBy=${sortBy}` : ""}`
-      );
+    let searchParamObj = {};
+    if (searchText) {
+      searchParamObj = { ...searchParamObj, searchText };
     }
+    if (sortBy) {
+      searchParamObj = { ...searchParamObj, sortBy };
+    }
+    setSearchParams({ ...searchParams, ...searchParamObj });
   }, [searchText, sortBy]);
 
+  // set paginated data based on search
   useEffect(() => {
     const newPaginatedData = data.slice(0 * ITEMS_PER_PAGE, 1 * ITEMS_PER_PAGE);
     setPaginatedData(newPaginatedData);
   }, [searchText]);
 
+  useEffect(() => {
+    navigate(
+      `/page/${currentPage}?${searchText ? `searchText=${searchText}` : ""}`
+    );
+  }, [currentPage]);
+
+  // search works on whole data
   const handleSearch = (text: string) => {
     setSearchText(text);
     // Update searchText state
@@ -68,8 +79,10 @@ function App() {
         .includes(text.toLowerCase());
     });
     setData(newData);
+    setCurrentPage(1);
   };
 
+  // sorts the data on the current page
   const handleSort = (option: string) => {
     if (option === "") {
       return;
@@ -100,9 +113,10 @@ function App() {
     }
   };
 
+  // handle page change via pagination component
   const handlePageChange = (pageNumber: number) => {
     // Update currentPage state
-    setCurrentPage((prev) => pageNumber + 1);
+    setCurrentPage((prev) => pageNumber);
     const newPaginatedData = data.slice(
       (pageNumber - 1) * ITEMS_PER_PAGE,
       pageNumber * ITEMS_PER_PAGE
@@ -112,29 +126,7 @@ function App() {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                padding: "24px 60px",
-              }}
-            >
-              <Search onSearch={handleSearch} initialSearchText={searchText} />
-              <Sort onSort={handleSort} initialSortOption={sortBy} />
-            </div>
-            <Grid items={paginatedData} />
-            <Pagination
-              totalPages={Math.ceil(data.length / ITEMS_PER_PAGE)}
-              onPageChange={handlePageChange}
-              currentPage={currentPage}
-            />
-          </>
-        }
-      />
+      <Route path="/" element={<IndexRoute currentPage={currentPage} />} />
       <Route
         path="/page/:pageNumber"
         element={
