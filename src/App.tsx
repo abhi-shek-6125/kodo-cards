@@ -116,7 +116,7 @@ function App() {
   // handle page change via pagination component
   const handlePageChange = (pageNumber: number) => {
     // Update currentPage state
-    setCurrentPage((prev) => pageNumber);
+    setCurrentPage(() => pageNumber);
     const newPaginatedData = data.slice(
       (pageNumber - 1) * ITEMS_PER_PAGE,
       pageNumber * ITEMS_PER_PAGE
