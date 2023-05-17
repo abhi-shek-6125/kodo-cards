@@ -11,9 +11,13 @@ const Grid = ({ items }: IGridProps) => {
       {items.map((item) => (
         <div key={`${item.name}-${item.image}`} className="card">
           <img src={item.image} alt={item.name} />
-          <h2>{item.name}</h2>
-          <p>{item.description}</p>
-          <p>Last edited: {item.dateLastEdited}</p>
+          <div className="info">
+            <h2>{item.name}</h2>
+            <p className="info-content">{item.description}</p>
+            <p className="info-date">
+              Last edited: {new Date(item.dateLastEdited).toString()}
+            </p>
+          </div>
         </div>
       ))}
     </div>

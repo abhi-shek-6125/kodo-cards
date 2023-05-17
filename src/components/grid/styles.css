@@ -1,8 +1,8 @@
 .grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   padding: 0 16px;
+  gap: 16px;
 }
 
 .card > img {
@@ -10,25 +10,65 @@
 }
 
 .card {
+  font-family: "Verdana";
   width: 100%; /* Adjust for different number of cards per row */
   margin-bottom: 20px;
-  padding: 10px;
   border: 1px solid black;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.info-date {
+  font-size: 12px;
+}
+
+.info-content {
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+.info > h2 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 24px;
 }
 
 @media screen and (min-width: 768px) {
+  .grid {
+    gap: 16px;
+  }
   .card {
     width: calc(
-      100% / 2 - 42px
+      (100% - 48px) / 2
     ); /* Adjust for different number of cards per row */
   }
 }
 
 @media screen and (min-width: 920px) {
-  .card {
-    width: calc(
-      100% / 3 - 52px
-    ); /* Adjust for different number of cards per row */
+  .grid {
+    gap: 24px;
+    padding: 0 60px;
+    width: 100%;
   }
+
+  .card {
+    flex-grow: 1;
+    width: calc(
+      (100% - 168px) / 3
+    ); /* Adjust for different number of cards per row */
+    max-width: calc((100%) / 3);
+  }
+  /* .card:last-of-type {
+    flex-grow: 0;
+  } */
 }

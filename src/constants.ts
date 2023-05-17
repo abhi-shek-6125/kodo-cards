@@ -699,3 +699,5 @@ export const DATA = [
     dateLastEdited: "2018-03-03T20:20:14.943Z",
   },
 ];
+
+export const ITEMS_PER_PAGE = 9;

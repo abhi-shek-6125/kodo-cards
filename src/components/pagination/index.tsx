@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./styles.css";
 
 interface IPaginationProps {
   totalPages: number;
@@ -22,13 +23,15 @@ const Pagination = ({
   };
 
   return (
-    <div>
+    <div className="pagination-wrapper">
       {pageNumbers.map((pageNumber) => (
         <Link
           to={`/page/${pageNumber}`}
           key={pageNumber}
           onClick={handlePageChange}
-          className={currentPage === pageNumber ? "active" : ""}
+          className={`${
+            currentPage === pageNumber ? "active" : ""
+          } pagination-button`}
         >
           {pageNumber}
         </Link>

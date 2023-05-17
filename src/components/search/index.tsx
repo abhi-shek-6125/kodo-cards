@@ -1,16 +1,14 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import "./styles.css";
 
 interface ISearchProps {
+  initialSearchText: string;
   onSearch(query: string): void;
 }
 
-const Search = ({ onSearch }: ISearchProps) => {
-  const [text, setText] = useState("");
-
+const Search = ({ initialSearchText, onSearch }: ISearchProps) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const searchText = event.target.value;
-    setText(searchText);
     onSearch(searchText);
   };
 
@@ -18,7 +16,7 @@ const Search = ({ onSearch }: ISearchProps) => {
     <div>
       <input
         type="text"
-        value={text}
+        value={initialSearchText}
         onChange={handleChange}
         placeholder="Search by name or description"
         className="search-box"

@@ -1,0 +1,13 @@
+.pagination-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.pagination-button {
+  border: 1px solid black;
+  padding: 8px 16px;
+  text-decoration: none;
+}
